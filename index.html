@@ -3,7 +3,7 @@
 <title>Демо: консультант Chois</title>
 <style>
 *{box-sizing:border-box}body{margin:0;font-family:-apple-system,Segoe UI,Roboto,sans-serif;background:#f6f4f1;color:#1d1d1f;display:flex;justify-content:center}
-.w{width:100%;max-width:480px;min-height:100vh;display:flex;flex-direction:column;background:#fff}
+.w{width:100%;max-width:480px;min-height:100vh;display:flex;flex-direction:column;background:#fff}#pa{flex:1;display:flex;flex-direction:column;min-height:0}
 header{padding:14px 16px;border-bottom:1px solid #eee}header b{font-size:16px}header div{font-size:12px;color:#777;margin-top:2px}
 .note{background:#fff7e0;color:#6b5400;font-size:12px;padding:8px 16px;line-height:1.4}
 #log{flex:1;padding:14px 12px;overflow-y:auto;display:flex;flex-direction:column;gap:8px}
@@ -12,11 +12,16 @@ header{padding:14px 16px;border-bottom:1px solid #eee}header b{font-size:16px}he
 .q{display:flex;flex-wrap:wrap;gap:6px;padding:0 12px 8px}.q button{border:1px solid #ddd;background:#fff;border-radius:16px;padding:7px 11px;font-size:13px;cursor:pointer}
 form{display:flex;gap:8px;padding:10px 12px;border-top:1px solid #eee}input{flex:1;border:1px solid #ddd;border-radius:20px;padding:10px 14px;font-size:16px;outline:none}
 form button{border:0;background:#1d1d1f;color:#fff;border-radius:20px;padding:0 16px;font-size:14px}
-</style></head><body><div class="w">
+.r{padding:14px 16px}.r h2{font-size:17px;margin:0 0 4px}.r .s{font-size:13px;color:#777;margin-bottom:12px}
+.c{border:1px solid #eee;border-radius:12px;padding:10px 12px;margin-bottom:8px}.c .t{font-size:12px;color:#777}.c .q{font-size:14.5px;margin:4px 0;padding:0}.c .tg{font-size:12px;color:#555;margin-top:4px}
+.neg{border-color:#e6b8b8;background:#fff6f6}.st{color:#b8860b}
+.th{display:flex;justify-content:space-between;font-weight:600;font-size:14px;margin-top:10px}.d{font-size:13px;color:#555;margin:2px 0 6px}
+ul{font-size:14px;line-height:1.5;padding-left:20px}.n{font-size:12px;color:#777;margin-top:14px;line-height:1.4}
+.tabs{display:flex;border-bottom:1px solid #eee}.tabs button{flex:1;border:0;background:#fff;padding:11px;font-size:14px;border-bottom:2px solid transparent}.tabs button.on{border-bottom-color:#1d1d1f;font-weight:600}#log,#q,form,.note{}.hide{display:none!important}</style></head><body><div class="w">
 <header><b>Chois Studios · консультант</b><div>Демо на основе открытых данных сайта choisstudios.com</div></header>
-<div class="note">Это демонстрация. Не подключена к вашим аккаунтам и не видит заказы. Отвечает только по информации, опубликованной на сайте; в остальных случаях передаёт вопрос менеджеру.</div>
+<div class="tabs"><button class="on" id="t1" type="button">Консультант</button><button id="t2" type="button">Отзывы</button></div><div id="pa"><div class="note">Это демонстрация. Не подключена к вашим аккаунтам и не видит заказы. Отвечает только по информации, опубликованной на сайте; в остальных случаях передаёт вопрос менеджеру.</div>
 <div id="log"></div><div class="q" id="q"></div>
-<form id="f"><input id="i" placeholder="Напишите вопрос…" autocomplete="off"><button>Отправить</button></form>
+<form id="f"><input id="i" placeholder="Напишите вопрос…" autocomplete="off"><button>Отправить</button></form></div><div id="pb" class="hide"><div class="r"><h2>Разбор отзывов: Chois Studios</h2><div class="s">Найдено 2 отзыва, оба положительные · источник: <a href="https://reviews.yandex.ru/shop/choisstudios.com">Яндекс Отзывы</a>. Выборка в разборе: 2 отзыв(а/ов), демо на открытых данных.</div><div class="c"><div class="t">29 сентября · <span class="st">★★★★★</span></div><div class="q">«Отличный магазин. Хороший выбор, качественное красивое белье.»</div><div>Доволен ассортиментом и качеством, отмечает информирование на всех этапах доставки и хорошую упаковку.</div><div class="tg">Тема: Ассортимент, качество, упаковка</div></div><div class="c"><div class="t">8 июля · <span class="st">★★★★★</span></div><div class="q">«Обожаю свою пижаму с этого магазина»</div><div>Покупательница очень довольна пижамой.</div><div class="tg">Тема: Качество</div></div><h2 style="margin-top:16px">Темы</h2><div class="th"><span>Качество и ассортимент</span><span>2 из 2</span></div><div class="d">Обе покупательницы хвалят белье и пижаму.</div><div class="th"><span>Доставка и упаковка</span><span>1 из 2</span></div><div class="d">Отмечено информирование о доставке и аккуратная упаковка.</div><h2 style="margin-top:16px">Что это значит для консультанта</h2><ul><li>Отзывов на этой площадке мало (2), негативных не найдено. Для полноценного разбора нужны отзывы с маркетплейсов, где есть товары бренда.</li><li>Консультант в Директе и Telegram может закрыть типовые вопросы: размер по таблице, доставка, оплата, примерка, возврат.</li><li>Информирование о доставке покупатели уже ценят: консультант должен давать трек и сроки сразу.</li></ul><div class="n">Это демо-разбор по нескольким публичным отзывам, не полный анализ. Цитаты сокращены, остальное пересказ. Полная версия WOS VoC обрабатывает сотни отзывов с WB, Ozon и других площадок.</div></div></div>
 </div>
 <script>
 var S=[["XS",60,64,90,94,82,86],["S",64,68,94,98,86,90],["M",68,72,98,102,90,94],["L",72,76,102,106,94,98],["XL",76,80,106,110,98,102]];
@@ -57,4 +62,6 @@ function send(t){t=t.trim();if(!t)return;add("u",t);setTimeout(function(){add("b
 document.getElementById("f").onsubmit=function(e){e.preventDefault();var i=document.getElementById("i");send(i.value);i.value=""};
 ["Подобрать размер","Сроки и стоимость доставки","Как оплатить","Можно ли примерить","Условия возврата","Где купить в магазине"].forEach(function(x){var b=document.createElement("button");b.textContent=x;b.type="button";b.onclick=function(){send(x==="Подобрать размер"?"Подобрать размер":x)};document.getElementById("q").appendChild(b)});
 add("b","Здравствуйте! Я консультант Chois Studios (демо). Помогу с размером, доставкой, оплатой, примеркой и возвратом.");
+function tab(a){document.getElementById("pa").classList.toggle("hide",!a);document.getElementById("pb").classList.toggle("hide",a);document.getElementById("t1").classList.toggle("on",a);document.getElementById("t2").classList.toggle("on",!a)}
+document.getElementById("t1").onclick=function(){tab(true)};document.getElementById("t2").onclick=function(){tab(false)};
 </script></body></html>
