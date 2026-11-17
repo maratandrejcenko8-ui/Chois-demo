@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Демо: консультант Chois</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:-apple-system,Segoe UI,Roboto,sans-serif;background:#f6f4f1;color:#1d1d1f;display:flex;justify-content:center}
+.w{width:100%;max-width:480px;min-height:100vh;display:flex;flex-direction:column;background:#fff}
+header{padding:14px 16px;border-bottom:1px solid #eee}header b{font-size:16px}header div{font-size:12px;color:#777;margin-top:2px}
+.note{background:#fff7e0;color:#6b5400;font-size:12px;padding:8px 16px;line-height:1.4}
+#log{flex:1;padding:14px 12px;overflow-y:auto;display:flex;flex-direction:column;gap:8px}
+.m{max-width:85%;padding:9px 12px;border-radius:14px;font-size:14.5px;line-height:1.45;white-space:pre-wrap}
+.b{background:#f0ede9;align-self:flex-start;border-bottom-left-radius:4px}.u{background:#1d1d1f;color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
+.q{display:flex;flex-wrap:wrap;gap:6px;padding:0 12px 8px}.q button{border:1px solid #ddd;background:#fff;border-radius:16px;padding:7px 11px;font-size:13px;cursor:pointer}
+form{display:flex;gap:8px;padding:10px 12px;border-top:1px solid #eee}input{flex:1;border:1px solid #ddd;border-radius:20px;padding:10px 14px;font-size:16px;outline:none}
+form button{border:0;background:#1d1d1f;color:#fff;border-radius:20px;padding:0 16px;font-size:14px}
+</style></head><body><div class="w">
+<header><b>Chois Studios · консультант</b><div>Демо на основе открытых данных сайта choisstudios.com</div></header>
+<div class="note">Это демонстрация. Не подключена к вашим аккаунтам и не видит заказы. Отвечает только по информации, опубликованной на сайте; в остальных случаях передаёт вопрос менеджеру.</div>
+<div id="log"></div><div class="q" id="q"></div>
+<form id="f"><input id="i" placeholder="Напишите вопрос…" autocomplete="off"><button>Отправить</button></form>
+</div>
+<script>
+var S=[["XS",60,64,90,94,82,86],["S",64,68,94,98,86,90],["M",68,72,98,102,90,94],["L",72,76,102,106,94,98],["XL",76,80,106,110,98,102]];
+var MGR="Этот вопрос лучше решит менеджер: напишите на hello@choisstudios.com, в WhatsApp +7 995 026-65-25 или в Telegram t.me/choisstudios.";
+var st={};
+function sizeFor(v,a,b){for(var k=0;k<S.length;k++){if(v>=S[k][a]&&v<=S[k][b])return k}return v<S[0][a]?-1:99}
+function calc(t){var n=(t.match(/\d{2,3}/g)||[]).map(Number);if(n.length<3)return null;
+ var w=n.filter(x=>x>=55&&x<=85)[0],h=n.filter(x=>x>=86&&x<=115),c=n;
+ // порядок ввода: грудь, талия, бёдра
+ var ch=n[0],wa=n[1],hi=n[2];
+ var r=[sizeFor(ch,5,6),sizeFor(wa,1,2),sizeFor(hi,3,4)];
+ if(r.some(x=>x===99||x===-1))return "Ваши замеры выходят за пределы таблицы на сайте (XS–XL, грудь 82–102, талия 60–80, бёдра 90–110). Лучше уточнить у менеджера: "+MGR;
+ var mx=Math.max.apply(null,r),mn=Math.min.apply(null,r);
+ var s="По таблице размеров: грудь "+ch+" → "+S[r[0]][0]+", талия "+wa+" → "+S[r[1]][0]+", бёдра "+hi+" → "+S[r[2]][0]+".";
+ s+= mx==mn?"\nВаш размер: "+S[mx][0]+".":"\nЗамеры попадают в разные размеры. Для верха ориентируйтесь на грудь ("+S[r[0]][0]+"), для низа на бёдра ("+S[r[2]][0]+"). Для платьев удобнее взять больший ("+S[mx][0]+"). Сомневаетесь — напишите менеджеру.";
+ return s+"\n\nМожно выбрать примерку в ПВЗ при оформлении заказа.";}
+var R=[
+[/размер|замер|обхват|подобр/,function(t){var c=calc(t);return c||"Напишите три замера в сантиметрах в порядке: грудь, талия, бёдра. Например: 88 66 96. Я сверю их с таблицей на сайте."}],
+[/бюст|лифчик|чашк/,function(){return "Для бюстгальтеров на сайте таблица по обхвату под грудью (70, 75, 80, 85) и чашкам A–E. Чтобы не ошибиться с чашкой, напишите менеджеру свои два замера (под грудью и по груди): "+MGR}],
+[/бесплатн|стоимост|сколько.*достав|достав.*сколько|цена достав/,function(){return "Доставка считается по тарифам транспортной компании. Бесплатная доставка в ПВЗ Яндекс от 7 000 ₽."}],
+[/достав|отправ|срок|трек|когда придет|ПВЗ|пвз|сдэк/,function(){return "Отправляем по России, в страны СНГ и по возможности по миру. Сборка заказа 1–3 рабочих дня (в пики дольше), после отправки придёт трек-номер. Срок доставки зависит от региона и считается при оформлении. В ПВЗ посылка хранится 7 дней. Бесплатная доставка в ПВЗ Яндекс от 7 000 ₽."}],
+[/предзаказ|под заказ/,function(){return "Предзаказ: изготовление может занять до 14 дней, это указано в описании товара. Отправляем сразу после готовности."}],
+[/оплат|карт|долями|рассроч|paypal|предоплат|налож/,function(){return "Оплата: банковская карта, «Долями» от Тинькофф, иностранные Visa/Mastercard, PayPal. Заказ принимается в работу после 100% предоплаты. Наложенным платежом не отправляем."}],
+[/примерк|примерить/,function(){return "Примерка доступна в ПВЗ, опцию нужно выбрать при оформлении. Можно выкупить часть: неподошедшее сразу отдаёте сотруднику СДЭК."}],
+[/возврат|вернуть|обмен|обменять|брак/,function(){return "Возврат надлежащего качества: в течение 7 дней с получения, изделие не носили, сохранены ярлыки и товарный вид, есть подтверждение покупки. Обратную доставку оплачивает покупатель. Для оформления напишите на hello@choisstudios.com с номером заказа.\nПо браку претензии принимаются в течение 14 дней.\nПо конкретному заказу "+MGR.charAt(0).toLowerCase()+MGR.slice(1)}],
+[/магазин|купить в|адрес|москв|питер|петербург|офлайн/,function(){return "Изделия есть в магазинах-партнёрах. Москва: OOHM HOME (Цветной б-р, 15), МОЖНО (Покровский б-р, 8с1; Хлебозавод, Новодмитровская 1с26). Санкт-Петербург: 8store (ул. Некрасова, 8). Ассортимент может отличаться, наличие уточняйте в магазине."}],
+[/сертификат|подар/,function(){return "Есть электронный сертификат: оформляется до 1 рабочего дня и приходит на e-mail. Бумажный отправляется через СДЭК. Также на сайте есть раздел с подарками и наборами."}],
+[/скидк|акци|распрод|чёрн|черн|пятниц|набор|сет/,function(){return "На сайте сейчас указано: на наборы −15%, Black Friday со скидками до −80%. Актуальные условия смотрите на сайте."}],
+[/контакт|связ|менеджер|поддержк|почт|whatsapp|ватсап|телеграм/,function(){return MGR}],
+[/опт|лояльн|ателье|индивидуальн/,function(){return "На сайте есть разделы «Опт», «Система лояльности» и «Ателье». Детали лучше уточнить у менеджера: "+MGR}],
+[/привет|здравств|добрый/,function(){return "Здравствуйте! Подскажу по размерам, доставке, оплате, примерке и возврату. С чем помочь?"}]
+];
+function reply(t){var l=t.toLowerCase();if((l.match(/\d{2,3}/g)||[]).length>=3){return calc(l)}for(var k=0;k<R.length;k++){if(R[k][0].test(l))return R[k][1](l)}
+ return "Не нашла такой информации на сайте, чтобы ответить точно. "+MGR}
+var log=document.getElementById("log");
+function add(c,t){var d=document.createElement("div");d.className="m "+c;d.textContent=t;log.appendChild(d);log.scrollTop=log.scrollHeight}
+function send(t){t=t.trim();if(!t)return;add("u",t);setTimeout(function(){add("b",reply(t))},350)}
+document.getElementById("f").onsubmit=function(e){e.preventDefault();var i=document.getElementById("i");send(i.value);i.value=""};
+["Подобрать размер","Сроки и стоимость доставки","Как оплатить","Можно ли примерить","Условия возврата","Где купить в магазине"].forEach(function(x){var b=document.createElement("button");b.textContent=x;b.type="button";b.onclick=function(){send(x==="Подобрать размер"?"Подобрать размер":x)};document.getElementById("q").appendChild(b)});
+add("b","Здравствуйте! Я консультант Chois Studios (демо). Помогу с размером, доставкой, оплатой, примеркой и возвратом.");
+</script></body></html>
